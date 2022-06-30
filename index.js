@@ -32,7 +32,7 @@ async function run() {
             const newBill = req.body;
             const result = await billingCollection.insertOne(newBill);
             res.send(result);
-        })
+        });
     }
     finally {
 
