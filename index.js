@@ -33,6 +33,14 @@ async function run() {
             const result = await billingCollection.insertOne(newBill);
             res.send(result);
         });
+
+        // Delete data
+        app.delete('/api/delete-billing/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const result = await billingCollection.deleteOne(query);
+            res.send(result);
+        });
     }
     finally {
 
