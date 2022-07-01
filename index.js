@@ -41,6 +41,32 @@ async function run() {
             const result = await billingCollection.deleteOne(query);
             res.send(result);
         });
+
+        // // load single data
+        // app.get('/api/update-billing/:id', async (req, res) => {
+        //     const id = req.params.id;
+        //     const query = { _id: ObjectId(id) };
+        //     const billing = await billingCollection.findOne(query);
+        //     res.send(billing);
+        // });
+
+        // Update Data
+        app.put('/api/update-billing/:id', async (req, res) => {
+            const id = req.params.id;
+            const newdata = req.body;
+            const filter = { _id: ObjectId(id) };
+            const options = { upsert: true };
+            const updatedDoc = {
+                $set: {
+                    name : newdata.name,
+                    email : newdata.email,
+                    phone: newdata.phone,
+                    amount : newdata.amount,
+                }
+            };
+            const result = await billingCollection.updateOne(filter, updatedDoc, options);
+            res.send(result);
+        });
     }
     finally {
 
